@@ -1,9 +1,6 @@
 package com.nato.dsjsp_modulo2.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -14,6 +11,7 @@ public class Atividade {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    @Column(columnDefinition = "TEXT")
     private String descricao;
     private double preco;
 
