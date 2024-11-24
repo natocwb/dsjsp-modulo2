@@ -1,11 +1,10 @@
 package com.nato.dsjsp_modulo2.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_participante")
@@ -15,6 +14,12 @@ public class Participante {
     private Long id;
     private String nome;
     private String email;
+
+    @ManyToMany
+    @JoinTable(name = "tb_participante_atividade",
+            joinColumns = @JoinColumn(name = "participante_id"),
+            inverseJoinColumns = @JoinColumn(name = "atividade_id"))
+    private Set<Atividade> atividades = new HashSet<>();
 
     public Participante() {
 

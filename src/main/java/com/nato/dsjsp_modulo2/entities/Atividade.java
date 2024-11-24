@@ -2,7 +2,7 @@ package com.nato.dsjsp_modulo2.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_atividade")
@@ -14,14 +14,24 @@ public class Atividade {
     @Column(columnDefinition = "TEXT")
     private String descricao;
     private double preco;
+    @ManyToOne
+    @JoinColumn(name="categoria_id")
+    private Categoria categoria;
+    @OneToMany(mappedBy = "atividade")
+    private List<Bloco> blocos = new ArrayList<>();
+
+
+        @ManyToMany(mappedBy = "atividades")
+        private Set<Participante> participantes = new HashSet<>();
 
     public Atividade() {}
 
-    public Atividade(Long id, String nome, String descricao, double preco) {
+    public Atividade(Long id, String nome, String descricao, double preco, Categoria categoria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
+        this.categoria = categoria;
     }
 
     public Long getId() {
@@ -56,6 +66,14 @@ public class Atividade {
         this.preco = preco;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,5 +85,9 @@ public class Atividade {
     @Override
     public int hashCode() {
         return Objects.hashCode(getId());
+    }
+
+    public List<Bloco> getBlocos() {
+        return blocos;
     }
 }
